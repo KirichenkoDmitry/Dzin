@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Дзынь</title>
+
+    <!-- Мета-теги для иконок и цветовой схемы -->
+    <link rel="apple-touch-icon" sizes="192x192" href="dzin.png">
+    
+    <!-- Мета-теги для Windows и цветовой схемы -->
+    <link rel="manifest" href="/manifest.json">
+    <meta name="msapplication-TileColor" content="#ffffff">
+    <meta name="msapplication-TileImage" content="/ms-icon-144x144.png">
+    <meta name="theme-color" content="#ffffff">
+
+    <!-- Мета-теги для iOS PWA -->
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+    <!-- Стиль для фонового изображения -->
+    <style>
+        body {
+            background-image: url('background.jpg');
+            background-size: cover;
+            background-repeat: no-repeat;
+        }
+    </style>
+</head>
+<body>
+    <button id="redirectButton" style="position: absolute; top: calc(50% - 100px); left: 50%; transform: translate(-50%, -50%); background-color: white; border: none; border-radius: 16px; padding: 40px 80px; color: red; font-size: 42px; font-weight: bold;">Вперед!</button>
+
+    <script>
+        // Получите ссылку, которую вы хотите открыть после нажатия кнопки
+        var vkUrl = "https://m.vk.com/write-218837624?mvk_entrypoint=community_page";
+
+        // Найдите кнопку по её id
+        var redirectButton = document.getElementById("redirectButton");
+
+        // Добавьте обработчик события для нажатия кнопки
+        redirectButton.addEventListener("click", function() {
+            // Перенаправьте пользователя на страницу VK
+            window.location.href = vkUrl;
+        });
+    </script>
+</body>
+</html>
