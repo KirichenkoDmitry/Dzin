@@ -16,17 +16,25 @@
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black">
 
-    <!-- Стиль для фонового изображения -->
+    <!-- Стиль для фонового изображения и полноэкранного режима -->
     <style>
+        html, body {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+            overflow: hidden;
+        }
+
         body {
             background-image: url('background.jpg');
             background-size: cover;
+            background-position: center center;
             background-repeat: no-repeat;
         }
     </style>
 </head>
 <body>
-    <button id="redirectButton" style="position: absolute; top: calc(50% - 100px); left: 50%; transform: translate(-50%, -50%); background-color: white; border: none; border-radius: 16px; padding: 40px 80px; color: red; font-size: 42px; font-weight: bold;">Вперед!</button>
+    <button id="redirectButton" style="position: absolute; top: calc(50% + 200px); left: 50%; transform: translate(-50%, -50%); background-color: white; border: none; border-radius: 16px; padding: 40px 80px; color: red; font-size: 42px; font-weight: bold;">Вперед!</button>
 
     <script>
         // Получите ссылку, которую вы хотите открыть после нажатия кнопки
