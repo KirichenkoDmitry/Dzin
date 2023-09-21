@@ -41,10 +41,10 @@
 
         // Функция для проверки, поддерживается ли URI-схема VK
         function checkVkSupport() {
-        if (navigator.userAgent.includes("VK_APP")) {
-                        window.location.href = vkUrl;
+        if (navigator.userAgent.toLowerCase().indexOf("vk") !== -1) {
+             window.location.href = vkUrl;
         } else {
-                                    window.location.href = webUrl;
+             window.location.href = webUrl;
         }
         }
 
