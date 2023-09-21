@@ -41,33 +41,29 @@
 
         // Функция для проверки, поддерживается ли URI-схема VK
         function checkVkSupport() {
-            var supported = false;
+  // Создайте временную ссылку с URL-схемой VK и попробуйте открыть ее
+        var testLink = document.createElement("a");
+        testLink.href = vkUrl;
 
-            // Создаем ссылку с URI-схемой VK
-            var testLink = document.createElement("a");
-            testLink.href = vkUrl;
+        // Проверьте, доступна ли URL-схема VK
+        testLink.addEventListener("error", function() {
+            // URL-схема недоступна, перенаправьте пользователя на веб-версию
+            window.location.href = webUrl;
+        });
 
-            // Обрабатываем событие ошибки при попытке открыть ссылку
-            testLink.onerror = function () {
-                supported = false;
-            };
+        // Добавьте временную ссылку в документ для проверки
+        document.body.appendChild(testLink);
 
-            // Добавляем ссылку в документ (не видимую для пользователя)
-            document.body.appendChild(testLink);
-
-            // Запускаем таймер с задержкой
-            setTimeout(function () {
-                // Если не было события ошибки, считаем URI-схему поддерживаемой
-                if (!supported) {
-                    window.location.href = webUrl; // Открываем веб-версию
-                }
-            }, 500);
+        // Добавьте обработчик события для успешной загрузки URL-схемы
+        testLink.addEventListener("load", function() {
+            // URL-схема доступна, перенаправьте пользователя на приложение VK
+            window.location.href = vkUrl;
+        });
         }
 
-        if (window.navigator.standalone) {
-            // Вызываем функцию проверки поддержки URI-схемы VK
-            checkVkSupport();
-        }
+     if (window.navigator.standalone) {
+        checkVkSupport();
+    }
 
         // Обработчик события visibilitychange
         document.addEventListener('visibilitychange', function () {
