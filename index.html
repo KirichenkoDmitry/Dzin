@@ -37,17 +37,29 @@
     <script>
         // диплинк
         var vkUrl = "vk://vk.com/write-218837624?mvk_entrypoint=community_page";
+        var webUrl = "https://m.vk.com/write-218837624?mvk_entrypoint=community_page";
 
+         // Функция для проверки, можно ли открыть ссылку с использованием "vk://"
+        function canOpenVkLink() {
+            if (window.navigator.standalone) {
+                // Если приложение установлено, попробуйте открыть ссылку
+                window.location.href = vkUrl;
+            } else {
+                // Если приложение не установлено, перейдите к веб-версии
+                window.location.href = webUrl;
+            }
+        }
+        
         if (window.navigator.standalone) {
             // редирект на страницу VK
-            window.location.href = vkUrl;
+            canOpenVkLink();
         }
 
         // Обработчик события visibilitychange
         document.addEventListener('visibilitychange', function () {
             if (document.visibilityState === 'visible' && window.navigator.standalone) {
                 // редирект на страницу VK при разворачивании
-                window.location.href = vkUrl;
+                canOpenVkLink();
             }
         });
     </script>
