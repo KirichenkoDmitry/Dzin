@@ -44,7 +44,7 @@
         var redirectButton = document.getElementById("redirectButton");
 
         // Проверьте, запущено ли PWA в автономном режиме (standalone)
-        if (window.matchMedia('(display-mode: standalone)').matches) {
+        if (window.navigator.standalone) {
             // Выполняйте редирект на страницу VK
             window.location.href = vkUrl;
         }
