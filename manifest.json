@@ -11,8 +11,30 @@
             "sizes": "192x192",
             "type": "image/png"
         }
+    ],
+    "intent_filters": [
+        {
+            "action": "VIEW",
+            "auto": true,
+            "category": ["BROWSABLE", "DEFAULT"],
+            "data": [
+                {
+                    "scheme": "http"
+                },
+                {
+                    "scheme": "https"
+                },
+                {
+                    "scheme": "vk"
+                }
+            ]
+        }
     ]
 }
+
+
+
+
 
 
 
