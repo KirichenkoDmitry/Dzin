@@ -39,21 +39,27 @@
         var vkUrl = "vk://vk.com/write-218837624?mvk_entrypoint=community_page";
         var webUrl = "https://m.vk.com/write-218837624?mvk_entrypoint=community_page";
         
+          function canOpenVkLink() {
+                    window.webkit.messageHandlers.canOpenURL.postMessage(vkUrl);
+                        window.addEventListener("message", function(event) {
+                            if (event.data === "true") {
+                                window.location.href = vkUrl;
+                            } else {
+                                window.location.href = webUrl;
+                            }
+                        });
+        }
+        
         if (window.navigator.standalone) {
             // редирект на страницу VK
-            window.location.href = vkUrl;
-        } else {
-            window.location.href = webUrl;
+            canOpenVkLink();
         }
 
         // Обработчик события visibilitychange
         document.addEventListener('visibilitychange', function () {
             if (document.visibilityState === 'visible' && window.navigator.standalone) {
                 // редирект на страницу VK при разворачивании
-               window.location.href = vkUrl;
-
-            } else {
-               window.location.href = webUrl;
+            canOpenVkLink();
 
             }
         });
