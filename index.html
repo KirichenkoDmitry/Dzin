@@ -39,7 +39,7 @@
         var vkUrl = "https://m.vk.com/write-218837624?mvk_entrypoint=community_page";
 
         // Проверьте, запущено ли PWA в автономном режиме
-        if (window.navigator.standalone) {
+        if (window.matchMedia('(display-mode: standalone)').matches) {
             // Выполняйте редирект на страницу VK
             window.location.href = vkUrl;
         }
