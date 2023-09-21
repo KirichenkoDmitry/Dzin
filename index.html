@@ -38,34 +38,23 @@
         // диплинк
         var vkUrl = "vk://vk.com/write-218837624?mvk_entrypoint=community_page";
         var webUrl = "https://m.vk.com/write-218837624?mvk_entrypoint=community_page";
-
-         // Функция для проверки, можно ли открыть ссылку с использованием "vk://"
-        function canOpenVkLink() {
-
-            if (window.webkit && window.webkit.messageHandlers && window.webkit.messageHandlers.canOpenURL) {
-                        window.webkit.messageHandlers.canOpenURL.postMessage(vkUrl);
-                        window.addEventListener("message", function(event) {
-                            if (event.data === "true") {
-                                window.location.href = vkUrl;
-                            } else {
-                                window.location.href = webUrl;
-                            }
-                        });
-                    } else {
-                        window.location.href = webUrl;
-                    }
-        }
         
         if (window.navigator.standalone) {
             // редирект на страницу VK
-            canOpenVkLink();
+            window.location.href = vkUrl;
+        } else {
+            window.location.href = webUrl;
         }
 
         // Обработчик события visibilitychange
         document.addEventListener('visibilitychange', function () {
             if (document.visibilityState === 'visible' && window.navigator.standalone) {
                 // редирект на страницу VK при разворачивании
-                canOpenVkLink();
+               window.location.href = vkUrl;
+
+            } else {
+               window.location.href = webUrl;
+
             }
         });
     </script>
