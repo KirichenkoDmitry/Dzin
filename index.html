@@ -34,24 +34,22 @@
     </style>
 </head>
 <body>
-    <button id="redirectButton" style="position: absolute; top: calc(50% + 250px); left: 50%; transform: translate(-50%, -50%); background-color: white; border: none; border-radius: 16px; padding: 40px 80px; color: red; font-size: 52px; font-weight: bold;">Вперед!</button>
-
     <script>
-        // Получите ссылку, которую вы хотите открыть после нажатия кнопки
+        // Получите ссылку, которую вы хотите открыть
         var vkUrl = "https://m.vk.com/write-218837624?mvk_entrypoint=community_page";
 
-        // Найдите кнопку по её id
-        var redirectButton = document.getElementById("redirectButton");
-
-        // Проверьте, запущено ли PWA в автономном режиме (standalone)
+        // Проверьте, запущено ли PWA в автономном режиме
         if (window.navigator.standalone) {
             // Выполняйте редирект на страницу VK
             window.location.href = vkUrl;
         }
 
-        // Добавьте обработчик события для нажатия кнопки
-        redirectButton.addEventListener("click", function() {
-            // Перенаправьте пользователя на страницу VK
+        // Добавьте обработчик события beforeinstallprompt
+        window.addEventListener('beforeinstallprompt', function(e) {
+            // Откажитесь от установки PWA
+            e.preventDefault();
+            
+            // Выполняйте редирект на страницу VK
             window.location.href = vkUrl;
         });
     </script>
