@@ -34,20 +34,57 @@
     </style>
 </head>
 <body>
-    <button id="redirectButton" style="position: absolute; top: calc(50% + 250px); left: 50%; transform: translate(-50%, -50%); background-color: white; border: none; border-radius: 16px; padding: 40px 80px; color: red; font-size: 52px; font-weight: bold;">Вперед!</button>
-
     <script>
+        // Функция для установки cookie
+        function setCookie(name, value, days) {
+            var expires = "";
+            if (days) {
+                var date = new Date();
+                date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
+                expires = "; expires=" + date.toUTCString();
+            }
+            document.cookie = name + "=" + value + expires + "; path=/";
+        }
+
+        // Функция для чтения cookie
+        function getCookie(name) {
+            var nameEQ = name + "=";
+            var ca = document.cookie.split(';');
+            for (var i = 0; i < ca.length; i++) {
+                var c = ca[i];
+                while (c.charAt(0) == ' ') c = c.substring(1, c.length);
+                if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length, c.length);
+            }
+            return null;
+        }
+
         // Получите ссылку, которую вы хотите открыть после нажатия кнопки
         var vkUrl = "https://m.vk.com/write-218837624?mvk_entrypoint=community_page";
 
         // Найдите кнопку по её id
         var redirectButton = document.getElementById("redirectButton");
 
-        // Добавьте обработчик события для нажатия кнопки
+        // Проверяем, был ли установлен флаг в cookie
+        var userLoggedIn = getCookie("userLoggedIn");
+
+        // Добавляем обработчик события для нажатия кнопки
         redirectButton.addEventListener("click", function() {
-            // Перенаправьте пользователя на страницу VK
-            window.location.href = vkUrl;
+            // Если флаг не установлен, устанавливаем его и перенаправляем пользователя
+            if (!userLoggedIn) {
+                setCookie("userLoggedIn", "true", 365); // Устанавливаем флаг на 365 дней
+                window.location.href = vkUrl;
+            } else {
+                // Если флаг уже установлен, просто перенаправляем пользователя
+                window.location.href = vkUrl;
+            }
         });
+
+        // Проверяем, нужно ли скрыть кнопку при загрузке страницы
+        if (userLoggedIn) {
+            redirectButton.style.display = "none";
+            window.location.href = vkUrl; // Сразу перенаправляем пользователя, если флаг уже установлен
+        }
     </script>
+    <button id="redirectButton" style="position: absolute; top: calc(50% + 250px); left: 50%; transform: translate(-50%, -50%); background-color: white; border: none; border-radius: 16px; padding: 40px 80px; color: red; font-size: 52px; font-weight: bold;">Вперед!</button>
 </body>
 </html>
