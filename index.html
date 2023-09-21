@@ -41,11 +41,28 @@
 
         // Функция для проверки, поддерживается ли URI-схема VK
         function checkVkSupport() {
-        if (navigator.userAgent.toLowerCase().indexOf("vk") !== -1) {
-             window.location.href = vkUrl;
-        } else {
-             window.location.href = webUrl;
+if ('getInstalledRelatedApps' in navigator) {
+    navigator.getInstalledRelatedApps().then(function(apps) {
+        for (var i = 0; i < apps.length; i++) {
+            var app = apps[i];
+            if (app.platform === 'play' && app.url.indexOf('vk.com') !== -1) {
+                // Есть нативное приложение VK на устройстве
+                window.location.href = vkUrl;
+                return;
+            }
         }
+        // Нет нативного приложения VK, перенаправляем на веб-приложение
+        window.location.href = webUrl;
+    }).catch(function(error) {
+        console.error('Ошибка при получении списка установленных приложений: ', error);
+        // Если возникает ошибка, перенаправляем на веб-приложение
+        window.location.href = webUrl;
+    });
+} else {
+    // Метод `getInstalledRelatedApps` не поддерживается, перенаправляем на веб-приложение
+    window.location.href = webUrl;
+}
+
         }
 
      if (window.navigator.standalone) {
