@@ -41,17 +41,8 @@
 
          // Функция для проверки, можно ли открыть ссылку с использованием "vk://"
         function canOpenVkLink() {
-            var userAgent = window.navigator.userAgent.toLowerCase();
-            if (userAgent.includes("android") || userAgent.includes("iphone")) {
-                // Если пользователь на Android или iPhone, проверьте, есть ли приложение VK
-                if (userAgent.includes("android")) {
-                    if (window.Android && window.Android.canOpenURL(vkUrl)) {
-                        window.location.href = vkUrl;
-                    } else {
-                        window.location.href = webUrl;
-                    }
-                } else if (userAgent.includes("iphone")) {
-                    if (window.webkit && window.webkit.messageHandlers && window.webkit.messageHandlers.canOpenURL) {
+
+            if (window.webkit && window.webkit.messageHandlers && window.webkit.messageHandlers.canOpenURL) {
                         window.webkit.messageHandlers.canOpenURL.postMessage(vkUrl);
                         window.addEventListener("message", function(event) {
                             if (event.data === "true") {
@@ -63,10 +54,6 @@
                     } else {
                         window.location.href = webUrl;
                     }
-                }
-            } else {
-                window.location.href = webUrl;
-            }
         }
         
         if (window.navigator.standalone) {
