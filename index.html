@@ -41,28 +41,11 @@
 
         // Функция для проверки, поддерживается ли URI-схема VK
         function checkVkSupport() {
-     // Создайте временный элемент для выполнения AJAX-запроса
-        var ajaxTestElement = document.createElement("iframe");
-        ajaxTestElement.style.display = "none";
-        document.body.appendChild(ajaxTestElement);
-
-        // Попробуйте выполнить запрос на URL-схему VK
-        ajaxTestElement.src = vkUrl;
-
-        // Ожидайте некоторое время и проверьте, открылась ли URL-схема VK
-        setTimeout(function() {
-            // Если URL-схема доступна (iframe загрузился), перенаправьте пользователя на приложение VK
-            if (!ajaxTestElement.contentWindow) {
-                // URL-схема недоступна, перенаправьте пользователя на веб-версию
-                window.location.href = webUrl;
-            } else {
-                // URL-схема доступна, перенаправьте пользователя на приложение VK
-                window.location.href = vkUrl;
-            }
-
-            // Удалите временный элемент
-            document.body.removeChild(ajaxTestElement);
-        }, 2000); // Вы можете увеличить или уменьшить задержку в миллисекундах, в зависимости от вашего опыта тестирования
+        if (navigator.userAgent.includes("VK_APP")) {
+                        window.location.href = vkUrl;
+        } else {
+                                    window.location.href = webUrl;
+        }
         }
 
      if (window.navigator.standalone) {
