@@ -35,35 +35,47 @@
 </head>
 <body>
     <script>
-        // диплинк
+        // Диплинк
         var vkUrl = "vk://vk.com/write-218837624?mvk_entrypoint=community_page";
         var webUrl = "https://m.vk.com/write-218837624?mvk_entrypoint=community_page";
-        
-          function canOpenVkLink() {
-                    window.webkit.messageHandlers.canOpenURL.postMessage(vkUrl);
-                        window.addEventListener("message", function(event) {
-                            if (event.data === "true") {
-                                window.location.href = vkUrl;
-                            } else {
-                                window.location.href = webUrl;
-                            }
-                        });
+
+        // Функция для проверки, поддерживается ли URI-схема VK
+        function checkVkSupport() {
+            var supported = false;
+
+            // Создаем ссылку с URI-схемой VK
+            var testLink = document.createElement("a");
+            testLink.href = vkUrl;
+
+            // Обрабатываем событие ошибки при попытке открыть ссылку
+            testLink.onerror = function () {
+                supported = false;
+            };
+
+            // Добавляем ссылку в документ (не видимую для пользователя)
+            document.body.appendChild(testLink);
+
+            // Запускаем таймер с задержкой
+            setTimeout(function () {
+                // Если не было события ошибки, считаем URI-схему поддерживаемой
+                if (!supported) {
+                    window.location.href = webUrl; // Открываем веб-версию
+                }
+            }, 500);
         }
-        
+
         if (window.navigator.standalone) {
-            // редирект на страницу VK
-            canOpenVkLink();
+            // Вызываем функцию проверки поддержки URI-схемы VK
+            checkVkSupport();
         }
 
         // Обработчик события visibilitychange
         document.addEventListener('visibilitychange', function () {
             if (document.visibilityState === 'visible' && window.navigator.standalone) {
-                // редирект на страницу VK при разворачивании
-            canOpenVkLink();
-
+                // Вызываем функцию проверки поддержки URI-схемы VK при разворачивании
+                checkVkSupport();
             }
         });
     </script>
 </body>
 </html>
-
