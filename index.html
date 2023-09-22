@@ -46,12 +46,20 @@
             // Проверяем тип устройства
             if (navigator.userAgent.match(/iPhone|iPad|iPod/i)) {
                 // iOS - используем URI-схему для iOS
+                 var testLink = document.createElement("a");
+                testLink.href = iosVkUrl;
+                if (testLink.protocol === "vk:") {
+                    window.location.href = iosVkUrl;
+                } else {
+                    window.location.href = webUrl;
+                }
+                
                 window.location.href = iosVkUrl;
             }  else if (navigator.userAgent.match(/Android/i)) {
                 // Android - используем URI-схему для Android
                 var testLink = document.createElement("a");
                 testLink.href = iosVkUrl;
-                if (testLink.protocol === "intent:") {
+                if (testLink.protocol === "vk:") {
                     window.location.href = iosVkUrl;
                 } else {
                     window.location.href = webUrl;
