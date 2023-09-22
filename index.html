@@ -41,18 +41,12 @@
 
         // Функция для проверки, поддерживается ли URI-схема VK
     function checkVkSupport() {
-        // Создаем временную ссылку с URI-схемой VK
-        var testLink = document.createElement("a");
-        testLink.href = vkUrl;
-
-        // Проверяем поддержку URI-схемы
-        if (testLink.protocol === "vk:") {
-            // URI-схема VK поддерживается, переходим по ней
-            window.location.href = vkUrl;
-        } else {
-            // URI-схема VK не поддерживается, переходим на веб-версию
-            window.location.href = webUrl;
-        }
+try {
+    window.location.href = vkUrl;
+    // Если переход выполнен успешно, то код после этой строки выполнится
+} catch (error) {
+    window.location.href = webUrl;
+}
     }
 
      if (window.navigator.standalone) {
