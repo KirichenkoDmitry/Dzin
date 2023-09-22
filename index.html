@@ -50,9 +50,9 @@
             }  else if (navigator.userAgent.match(/Android/i)) {
                 // Android - используем URI-схему для Android
                 var testLink = document.createElement("a");
-                testLink.href = androidVkUrl;
+                testLink.href = iosVkUrl;
                 if (testLink.protocol === "intent:") {
-                    window.location.href = androidVkUrl;
+                    window.location.href = iosVkUrl;
                 } else {
                     window.location.href = webUrl;
                 }
