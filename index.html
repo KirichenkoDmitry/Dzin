@@ -16,6 +16,10 @@
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <meta name="viewport" content="initial-scale=1" />
+
+    <meta property="al:android:url" content="intent://vk.com/write-218837624?mvk_entrypoint=community_page">
+    <meta property="al:android:package" content="com.vkontakte.android">
+    <meta property="al:android:app_name" content="VK">
     
     <!-- Стиль для фонового изображения и полноэкранного режима -->
     <style>
@@ -45,22 +49,14 @@
         function checkVkSupport() {
             // Проверяем тип устройства
             if (navigator.userAgent.match(/iPhone|iPad|iPod/i)) {
-                // iOS - используем URI-схему для iOS
-                 var testLink = document.createElement("a");
-                testLink.href = iosVkUrl;
-                if (testLink.protocol === "vk:") {
-                    window.location.href = iosVkUrl;
-                } else {
-                    window.location.href = webUrl;
-                }
-                
+                // iOS - используем URI-схему для iOS                
                 window.location.href = iosVkUrl;
             }  else if (navigator.userAgent.match(/Android/i)) {
                 // Android - используем URI-схему для Android
                 var testLink = document.createElement("a");
                 testLink.href = iosVkUrl;
-                if (testLink.protocol === "vk:") {
-                    window.location.href = iosVkUrl;
+                if (testLink.protocol === "intent:") {
+                    window.location.href = androidVkUrl;
                 } else {
                     window.location.href = webUrl;
                 }
