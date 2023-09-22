@@ -15,8 +15,6 @@
     <!-- Мета-теги для iOS PWA -->
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    
-    <!-- Мета-тег для viewport -->
     <meta name="viewport" content="initial-scale=1, viewport-fit=cover" />
 
     <!-- Стиль для фонового изображения и полноэкранного режима -->
@@ -30,46 +28,34 @@
 
         body {
             background-image: url('background.jpg');
-            background-size: cover;
-            background-position: center center;
-            background-repeat: no-repeat;
-        }
-
-        #content {
-            height: 100%; /* Занимает всю видимую область экрана */
-            padding-bottom: env(safe-area-inset-bottom); /* Учитываем высоту белой полосы внизу экрана */
         }
     </style>
 </head>
 <body>
-    <div id="content">
-        <!-- Ваш контент здесь -->
-    </div>
-
     <script>
         // Диплинк
         var vkUrl = "vk://vk.com/write-218837624?mvk_entrypoint=community_page";
         var webUrl = "https://m.vk.com/write-218837624?mvk_entrypoint=community_page";
 
         // Функция для проверки, поддерживается ли URI-схема VK
-        function checkVkSupport() {
-            // Создаем временную ссылку с URI-схемой VK
-            var testLink = document.createElement("a");
-            testLink.href = vkUrl;
+function checkVkSupport() {
+    // Создаем временную ссылку с URI-схемой VK
+    var testLink = document.createElement("a");
+    testLink.href = vkUrl;
 
-            // Проверяем поддержку URI-схемы
-            if (testLink.protocol === "vk:") {
-                // URI-схема VK поддерживается, переходим по ней
-                window.location.href = vkUrl;
-            } else {
-                // URI-схема VK не поддерживается, переходим на веб-версию
-                window.location.href = webUrl;
-            }
-        }
+    // Проверяем поддержку URI-схемы
+    if (testLink.protocol === "vk:") {
+        // URI-схема VK поддерживается, переходим по ней
+        window.location.href = vkUrl;
+    } else {
+        // URI-схема VK не поддерживается, переходим на веб-версию
+        window.location.href = webUrl;
+    }
+}
 
-        if (window.navigator.standalone) {
-            checkVkSupport();
-        }
+     if (window.navigator.standalone) {
+        checkVkSupport();
+    }
 
         // Обработчик события visibilitychange
         document.addEventListener('visibilitychange', function () {
