@@ -36,29 +36,35 @@
 </head>
 <body>
     <script>
-        // Диплинк
-        var vkUrl = "vk://vk.com/write-218837624?mvk_entrypoint=community_page";
+        // URI-схемы для VK на iOS и Android
+        var iosVkUrl = "vk://vk.com/write-218837624?mvk_entrypoint=community_page";
+        var androidVkUrl = "intent://vk.com/write-218837624#Intent;package=com.vkontakte.android;scheme=https;end";
         var webUrl = "https://m.vk.com/write-218837624?mvk_entrypoint=community_page";
 
-        // Функция для проверки, поддерживается ли URI-схема VK
-function checkVkSupport() {
-    // Создаем временную ссылку с URI-схемой VK
-    var testLink = document.createElement("a");
-    testLink.href = vkUrl;
+        // Функция для проверки, поддерживается ли URI-схема VK на устройстве
+        function checkVkSupport() {
+            // Проверяем тип устройства
+            if (navigator.userAgent.match(/iPhone|iPad|iPod/i)) {
+                // iOS - используем URI-схему для iOS
+                window.location.href = iosVkUrl;
+            } else if (navigator.userAgent.match(/Android/i)) {
+                // Android - используем URI-схему для Android
+                var testLink = document.createElement("a");
+                testLink.href = androidVkUrl;
+                if (testLink.protocol === "intent:") {
+                    window.location.href = androidVkUrl;
+                } else {
+                    window.location.href = webUrl;
+                }
+            } else {
+                // Другие устройства - переходим на веб-версию
+                window.location.href = webUrl;
+            }
+        }
 
-    // Проверяем поддержку URI-схемы
-    if (testLink.protocol === "vk:") {
-        // URI-схема VK поддерживается, переходим по ней
-        window.location.href = vkUrl;
-    } else {
-        // URI-схема VK не поддерживается, переходим на веб-версию
-        window.location.href = webUrl;
-    }
-}
-
-     if (window.navigator.standalone) {
-        checkVkSupport();
-    }
+        if (window.navigator.standalone) {
+            checkVkSupport();
+        }
 
         // Обработчик события visibilitychange
         document.addEventListener('visibilitychange', function () {
