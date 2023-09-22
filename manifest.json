@@ -1,7 +1,7 @@
 {
     "name": "Дзынь",
     "short_name": "VK Chat",
-    "start_url": "https://kirichenkodmitry.github.io/Dzin/index.html",
+    "start_url": "index.html",
     "display": "standalone",
     "background_color": "#ffffff",
     "theme_color": "#4a76a8",
@@ -11,9 +11,24 @@
             "sizes": "192x192",
             "type": "image/png"
         }
+    ],
+    "prefer_related_applications": false, // Опционально
+    "related_applications": [
+        {
+            "platform": "play",
+            "url": "https://play.google.com/store/apps/details?id=com.vkontakte.android", // Здесь укажите URL приложения VK на Google Play
+            "id": "com.vkontakte.android"
+        }
+    ],
+    "scope": "/", // Опционально - область вашего веб-приложения
+    "start_url": "/index.html", // Опционально - начальный URL вашего веб-приложения
+    "intents": [
+        {
+            "intent": "view",
+            "href": "vk://vk.com/write-218837624?mvk_entrypoint=community_page"
+        }
     ]
 }
-
 
 
 
